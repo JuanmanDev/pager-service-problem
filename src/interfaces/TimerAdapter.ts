@@ -1,3 +1,1 @@
-
-
-export type CreateTimer = () => Promise<String>
+export type CreateTimer = () => Promise<String>;

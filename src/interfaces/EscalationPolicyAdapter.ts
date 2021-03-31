@@ -1,6 +1,3 @@
-import { EscalationPolicy } from "./DomainLogic";
-
+import { EscalationPolicy } from './DomainLogic';
 
 export type GetEscalationPolicy = (escalationPolicyIdentifier: string) => Promise<EscalationPolicy>;
-
-
