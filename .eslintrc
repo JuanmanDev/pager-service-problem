@@ -9,6 +9,9 @@
       "project": "./tsconfig.json"
     },
     "rules": {
+      "import/prefer-default-export": "off",
+      "max-len": ["error", { "code": 120 }],
+      "no-console": "off"
     },
     "ignorePatterns": [
       "jest.config.js"
