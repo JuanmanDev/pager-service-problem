@@ -1,1 +1,1 @@
-export type SendSMS = (email: ({ numbers: String[], body: string })) => Promise<Boolean>;
+export type SendSMS = (email: ({ numbers: String[], body: string })) => Promise<void>;

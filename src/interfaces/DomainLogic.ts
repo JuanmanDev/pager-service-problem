@@ -6,8 +6,8 @@
 export interface Person {
   Id: String;
   Name: String;
-  SMSNumber: String;
-  Email: String;
+  SMSNumber?: String;
+  Email?: String;
 }
 
 /**
@@ -62,12 +62,15 @@ export interface Alert {
      */
   Level: number;
   /**
-     * Date and time when the
+     * Array for tuples that contains information about every time the alarm scales up.
+     * First element in the tuple is the Date and time when the alert has been updated with new level alert,
+     * included the firt time (created time)
+     * Second element in tuple is the timer identification.
      *
      * @type {Date[]}
      * @memberof Alert
      */
-  ScaledTime: Date[];
+  ScaledTime: [Date, String][];
   /**
      * Date and time when the alert has been closed
      *
@@ -128,6 +131,11 @@ export interface AlertPerson {
   Date: Date;
 }
 
+/**
+ * Type for the timeout system
+ */
+export type HandlerFunctionIdentifier = String;
+
 // Next functions will be called from Pager Web Console (Console Adapter)
 export type DomainLogicCreateService = (service: Omit<Service, 'Id'>) => Promise<Service>;
 export type DomainLogicGetServices = () => Promise<Service[]>; // TODO add filters, paged, etc...
@@ -141,3 +149,7 @@ export type DomainLogicStopAler = (serviceIdentifier: String) => Promise<boolean
 
 // Next functions will be called from Timer Service (Timer Adapter)
 export type DomainLogicCheckAlert = (alertIdentifier: String) => Promise<void>;
+export type DomainLogicReceiveTimeout = (data: { // Maybe this should me moved to TimerAdapter?
+  funcitonIdentifier: HandlerFunctionIdentifier,
+  params?: any[]
+}) => Promise<void>;
