@@ -1,6 +1,9 @@
 import { DomainLogicReceiveTimeout } from '@interfaces/DomainLogic';
 import { CreateTimer, CreateTimerInput } from '@interfaces/TimerAdapter';
 
+import bindDependencies from '@inyection/bindDependencies';
+import TYPES from '@inyection/types';
+
 export const CreateTimerMock = async function CreateTimerMock(
   domainLogicReceiveTimeout: DomainLogicReceiveTimeout,
   data: CreateTimerInput,
@@ -15,7 +18,7 @@ export const CreateTimerMock = async function CreateTimerMock(
   return timerIdentifier.toString();
 };
 
-// TODO: Inject this!
-const a: DomainLogicReceiveTimeout = async () => {};
-
-export const CreateTimerMockInjected: CreateTimer = CreateTimerMock.bind(CreateTimerMock, a);
+export const CreateTimerMockInjected: CreateTimer = bindDependencies(
+  CreateTimerMock,
+  [TYPES.DomainLogicReceiveTimeout],
+);

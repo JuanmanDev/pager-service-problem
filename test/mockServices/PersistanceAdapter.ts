@@ -18,7 +18,7 @@ export const ServiceMock: Service = {
 export const AlertMock: Alert = {
   Description: 'Mock',
   Level: 0,
-  ScaledTime: [new Date()],
+  ScaledTime: [[new Date(), 'Timers ID Mocked']],
   Service: ServiceMock,
 };
 

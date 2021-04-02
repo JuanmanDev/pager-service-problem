@@ -70,7 +70,7 @@ export interface Alert {
      * @type {Date[]}
      * @memberof Alert
      */
-  ScaledTime: [Date, String][];
+  ScaledTime: [Date, string][];
   /**
      * Date and time when the alert has been closed
      *
@@ -145,7 +145,7 @@ export type DomainLogicCloseAlert = (alertIdentifier: String) => Promise<boolean
 
 // Next functions will be called from Alerting Service (Alerting Adapter)
 export type DomainLogicCreateAlert = (serviceIdentifier: String) => Promise<boolean>;
-export type DomainLogicStopAler = (serviceIdentifier: String) => Promise<boolean>;
+export type DomainLogicStopAlert = (serviceIdentifier: String) => Promise<boolean>;
 
 // Next functions will be called from Timer Service (Timer Adapter)
 export type DomainLogicCheckAlert = (alertIdentifier: String) => Promise<void>;

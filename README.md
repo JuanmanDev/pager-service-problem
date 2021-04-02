@@ -9,7 +9,9 @@ Run tests with:
 
 
 
-
+You could generate a diagram with:
+`yarn madge  --extensions ts ./ -i graph.png`
+Remeber to install (Graphviz with Choco)[https://community.chocolatey.org/packages/Graphviz] to ensure is installed on path.
 
 <br>
 
