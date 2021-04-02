@@ -6,4 +6,10 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}),
+  reporters: [
+    "default",
+    ["./node_modules/jest-html-reporter", {
+        "pageTitle": "Test Report"
+    }]
+  ]
 };
