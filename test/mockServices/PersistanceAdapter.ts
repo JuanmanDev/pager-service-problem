@@ -34,7 +34,10 @@ export const alertPersonMock: AlertPerson = {
 export const CreateServiceMock: CreateService = async function CreateServiceMock() {
   return ServiceMock;
 };
-export const GetServicesMock: GetServices = async function GetServicesMock() {
+export const GetServicesMock: GetServices = async function GetServicesMock(filter) {
+  if (filter && filter.id) {
+    return [ServiceMock];
+  }
   return [ServiceMock, ServiceMock];
 };
 export const ModifyServiceMock: ModifyService = async function ModifyServiceMock() {

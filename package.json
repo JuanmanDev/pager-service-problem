@@ -7,6 +7,7 @@
     "build": "tsc",
     "lint": "eslint .",
     "test": "jest --collect-coverage",
+    "test-debug": "jest --collect-coverage --runInBand",
     "validate": "yarn list",
     "configure": "simple-git-hooks"
   },
