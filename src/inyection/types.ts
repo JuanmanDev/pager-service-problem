@@ -12,6 +12,15 @@ const TYPES = {
   PersistanceAdapterGetServices: 'PersistanceAdapterGetServices',
   PersistanceAdapterModifyService: 'PersistanceAdapterModifyService',
   PersistanceAdapterDeleteService: 'PersistanceAdapterDeleteService',
+  PersistanceAdapterCreateAlertPerson: 'PersistanceAdapterCreateAlertPerson',
+  PersistanceAdapterGetAlert: 'PersistanceAdapterGetAlert',
+  PersistanceAdapterCreateAlert: 'PersistanceAdapterCreateAlert',
+  PersistanceAdapterModifyAlert: 'PersistanceAdapterModifyAlert',
+  PersistanceAdapterGetAlertPerson: 'PersistanceAdapterGetAlertPerson',
+  PersistanceAdapterModifyAlertIfNotClosed: 'PersistanceAdapterModifyAlertIfNotClosed',
+
+  MailAdapterSendEmail: 'MailAdapterSendEmail',
+  SMSAdapterSendSMS: 'SMSAdapterSendSMS',
 };
 
 export { TYPES };

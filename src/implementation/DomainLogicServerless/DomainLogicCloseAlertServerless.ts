@@ -1,0 +1,52 @@
+import { Alert, DomainLogicCloseAlert } from '@interfaces/DomainLogic';
+import { GetAlert, GetAlertPerson, ModifyAlertIfNotClosed } from '@interfaces/PersistanceAdapter';
+import bindDependencies from '@inyection/bindDependencies';
+import TYPES from '@inyection/types';
+import { CreateTimerMock } from '@MockServices/TimerAdapterMock';
+import ERROR from '../Errors/DomainLogicServerless';
+
+export const DomainLogicCloseAlertServerless = async function DomainLogicCloseAlertServerless({
+  getAlert, getAlertPerson, modifyAlertIfNotClosed,
+}: {
+  getAlert: GetAlert,
+  getAlertPerson: GetAlertPerson,
+  modifyAlertIfNotClosed: ModifyAlertIfNotClosed,
+},
+alertIdentifier?: String,
+alertPersonIdentifier?: String) {
+  console.info(`Closing: ${alertIdentifier} - ${alertPersonIdentifier}.`);
+
+  let alert: Alert;
+
+  if (alertPersonIdentifier) {
+    const alertPerson = await getAlertPerson(alertPersonIdentifier);
+    alert = alertPerson.Alert;
+  } else if (alertIdentifier) {
+    alert = await getAlert(alertIdentifier);
+  } else {
+    throw new Error(ERROR.DL_Serverless_AlertNotFound);
+  }
+
+  if (alert.ClosedTime) {
+    console.info(ERROR.DL_Serverless_AlertAlreadyClosed);
+    return false;
+  }
+
+  alert.ClosedTime = new Date();
+
+  if (!await modifyAlertIfNotClosed(alert)) {
+    console.info(ERROR.DL_Serverless_AlertAlreadyClosed);
+    return false;
+  }
+
+  return true;
+};
+
+export const DomainLogicCloseAlertServerlessInjected: DomainLogicCloseAlert = bindDependencies(
+  CreateTimerMock,
+  {
+    getAlert: TYPES.PersistanceAdapterGetAlert,
+    getAlertPerson: TYPES.PersistanceAdapterGetAlertPerson,
+    modifyAlertIfNotClosed: TYPES.PersistanceAdapterModifyAlertIfNotClosed,
+  },
+);

@@ -1,11 +1,17 @@
 import {
-  CreateService, DeleteService, GetServices, ModifyService,
+  CreateAlert,
+  CreateAlertPerson,
+  CreateService, DeleteService, GetAlert, GetServices, ModifyAlert, ModifyService,
 } from '@interfaces/PersistanceAdapter';
 import TYPES from '@inyection/types';
 import {
+  CreateAlertMock,
+  CreateAlertPersonMock,
   CreateServiceMock,
   DeleteServiceMock,
+  GetAlertMock,
   GetServicesMock,
+  ModifyAlertMock,
   ModifyServiceMock,
 } from '@MockServices/PersistanceAdapter';
 import { ContainerModule } from 'inversify';
@@ -22,5 +28,18 @@ export const PersistanceAdapterMockContainerModule = new ContainerModule((bind) 
   );
   bind<DeleteService>(TYPES.PersistanceAdapterDeleteService).toConstantValue(
     DeleteServiceMock,
+  );
+
+  bind<CreateAlertPerson>(TYPES.PersistanceAdapterCreateAlertPerson).toConstantValue(
+    CreateAlertPersonMock,
+  );
+  bind<GetAlert>(TYPES.PersistanceAdapterGetAlert).toConstantValue(
+    GetAlertMock,
+  );
+  bind<CreateAlert>(TYPES.PersistanceAdapterCreateAlert).toConstantValue(
+    CreateAlertMock,
+  );
+  bind<ModifyAlert>(TYPES.PersistanceAdapterModifyAlert).toConstantValue(
+    ModifyAlertMock,
   );
 });

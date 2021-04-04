@@ -5,6 +5,10 @@ import {
   ModifyService,
   DeleteService,
   CreateAlertPerson,
+  CreateAlert,
+  ModifyAlert,
+  GetAlert,
+  ModifyAlertIfNotClosed,
 } from '@interfaces/PersistanceAdapter';
 
 import { escalationPolicyMocked, person5 } from './EscalationPolicyAdapterMock';
@@ -16,13 +20,14 @@ export const ServiceMock: Service = {
 };
 
 export const AlertMock: Alert = {
+  Id: '321-654-987',
   Description: 'Mock',
   Level: 0,
   ScaledTime: [[new Date(), 'Timers ID Mocked']],
   Service: ServiceMock,
 };
 
-export const alertPersonMock: AlertPerson = {
+export const AlertPersonMock: AlertPerson = {
   Alert: AlertMock,
   Channel: 'SMS',
   Date: new Date(),
@@ -48,7 +53,20 @@ export const DeleteServiceMock: DeleteService = async function DeleteServiceMock
 };
 
 export const CreateAlertPersonMock: CreateAlertPerson = async function CreateAlertPersonMock() {
-  return alertPersonMock;
+  return AlertPersonMock;
+};
+
+export const GetAlertMock: GetAlert = async function GetAlertMock() {
+  return AlertMock;
+};
+export const CreateAlertMock: CreateAlert = async function CreateAlertMock() {
+  return AlertMock;
+};
+export const ModifyAlertMock: ModifyAlert = async function ModifyAlertMock() {
+  return AlertMock;
+};
+export const ModifyAlertIfNotClosedMock: ModifyAlertIfNotClosed = async function ModifyAlertIfNotClosedMock() {
+  return true;
 };
 
 export const CreateServiceMockKO: CreateService = async function CreateServiceMockKO() {
