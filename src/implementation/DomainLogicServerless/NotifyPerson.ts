@@ -22,7 +22,7 @@ export async function NotifyPerson(
   alert: Alert,
 ) {
   if (!person.Email && !person.SMSNumber) {
-    throw new Error(`${ERROR.DL_Serverless_EscalationPolicyWithoutPersons} - ${JSON.stringify(person)}`);
+    throw new Error(`${ERROR.DL_Serverless_EscalationPolicyPersonWithoutContactData} - ${JSON.stringify(person)}`);
   } else {
     let sentAnyNotification = false;
 

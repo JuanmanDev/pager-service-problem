@@ -27,6 +27,15 @@ export const AlertMock: Alert = {
   Service: ServiceMock,
 };
 
+export const AlertClosedMock: Alert = {
+  Id: '321-654-987',
+  Description: 'Mock',
+  Level: 0,
+  ScaledTime: [[new Date(), 'Timers ID Mocked']],
+  Service: ServiceMock,
+  ClosedTime: new Date(),
+};
+
 export const AlertPersonMock: AlertPerson = {
   Alert: AlertMock,
   Channel: 'SMS',

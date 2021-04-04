@@ -4,21 +4,35 @@ import { CreateTimer, CreateTimerInput } from '@interfaces/TimerAdapter';
 import bindDependencies from '@inyection/bindDependencies';
 import TYPES from '@inyection/types';
 
+let timerSequence = 0;
+const timers: NodeJS.Timeout[] = [];
+
 export const CreateTimerMock = async function CreateTimerMock(
-  domainLogicReceiveTimeout: DomainLogicReceiveTimeout,
+  {
+    domainLogicReceiveTimeout,
+  }: {
+    domainLogicReceiveTimeout: DomainLogicReceiveTimeout,
+  },
   data: CreateTimerInput,
 ) {
   const timerIdentifier = setTimeout(() => {
     domainLogicReceiveTimeout({
-      funcitonIdentifier: data.functionIdentifier,
+      functionIdentifier: data.functionIdentifier,
       params: data.params,
     });
-  }, data.timeSpanMillisecons);
+  }, 20 * 1000);
+  // }, data.timeSpanMillisecons);
 
-  return timerIdentifier.toString();
+  // eslint-disable-next-line no-plusplus
+  const id = timerSequence++;
+  timers[id] = timerIdentifier;
+
+  return id;
 };
 
 export const CreateTimerMockInjected: CreateTimer = bindDependencies(
   CreateTimerMock,
-  [TYPES.DomainLogicReceiveTimeout],
+  {
+    domainLogicReceiveTimeout: TYPES.DomainLogicReceiveTimeout,
+  },
 );

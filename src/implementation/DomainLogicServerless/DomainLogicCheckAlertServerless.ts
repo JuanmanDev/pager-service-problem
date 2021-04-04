@@ -1,14 +1,14 @@
-import { DomainLogicCheckAlert } from '@interfaces/DomainLogic';
+import { DomainLogicCheckAlert, DomainLogicStepUpLevelAlert } from '@interfaces/DomainLogic';
 import { GetAlert } from '@interfaces/PersistanceAdapter';
 import bindDependencies from '@inyection/bindDependencies';
 import TYPES from '@inyection/types';
-import { StepUpLevelAlertInjected } from './StepUpLevelAlert';
 
 export const DomainLogicCheckAlertServerless = async function DomainLogicCheckAlertServerless(
   {
-    getAlert,
+    getAlert, stepUpLevelAlert,
   }: {
     getAlert: GetAlert,
+    stepUpLevelAlert: DomainLogicStepUpLevelAlert
   },
   { alertIdentifier }: {
     serviceIdentifier: String,
@@ -25,9 +25,13 @@ export const DomainLogicCheckAlertServerless = async function DomainLogicCheckAl
 
   const escalationPolicy = alert.Service.EscalationPolicy;
 
-  StepUpLevelAlertInjected(escalationPolicy, alert, alert.Service, alert.Description);
+  await stepUpLevelAlert(escalationPolicy, alert, alert.Service, alert.Description);
 };
+
 export const DomainLogicCheckAlertServerlessInjected: DomainLogicCheckAlert = bindDependencies(
   DomainLogicCheckAlertServerless,
-  { getAlert: TYPES.PersistanceAdapterGetAlert },
+  {
+    getAlert: TYPES.PersistanceAdapterGetAlert,
+    stepUpLevelAlert: TYPES.DomainLogicStepUpLevelAlert,
+  },
 );

@@ -3,7 +3,8 @@ const TYPES = {
   DomainLogicModifyService: 'DomainLogicModifyService',
   DomainLogicDeleteService: 'DomainLogicDeleteService',
   DomainLogicGetServices: 'DomainLogicGetServices',
-
+  DomainLogicCreateAlert: 'DomainLogicCreateAlert',
+  DomainLogicStepUpLevelAlert: 'DomainLogicStepUpLevelAlert',
   DomainLogicReceiveTimeout: 'DomainLogicReceiveTimeout',
 
   TimerAdapterCreateTimerMock: 'TimerAdapterCreateTimerMock',

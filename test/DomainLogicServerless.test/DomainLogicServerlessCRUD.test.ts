@@ -5,9 +5,9 @@ import {
 import TYPES from '@inyection/types';
 
 import { DomainLogicContainerModule } from '@inyection/containers/DomainLogic';
-import { PersistanceAdapterMockContainerModule } from './containers/PersistanceAdapterMock';
+import { PersistanceAdapterMockContainerModule } from '../containers/PersistanceAdapterMock';
 
-describe('test createService', () => {
+describe('test CRUD Service', () => {
   beforeAll(() => {
     container.load(PersistanceAdapterMockContainerModule);
     container.load(DomainLogicContainerModule);

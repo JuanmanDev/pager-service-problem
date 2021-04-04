@@ -1,14 +1,17 @@
 /* eslint-disable no-param-reassign */
-import { EscalationPolicy, Alert, Service } from '@interfaces/DomainLogic';
+import {
+  EscalationPolicy, Alert, Service, DomainLogicStepUpLevelAlert,
+} from '@interfaces/DomainLogic';
 import {
   ModifyAlertIfNotClosed, GetAlert, ModifyAlert,
 } from '@interfaces/PersistanceAdapter';
 import { CreateTimer } from '@interfaces/TimerAdapter';
 import bindDependencies from '@inyection/bindDependencies';
+import TYPES from '@inyection/types';
 import { FunctionsToReceive } from './FunctionsToReceive';
 import { NotifyPersonInjected } from './NotifyPerson';
 
-export default async function StepUpLevelAlert({
+export default async function DomainLogicServerlessStepUpLevelAlert({
   createTimer,
   modifyAlert,
   modifyAlertIfNotClosed,
@@ -27,10 +30,14 @@ description: String) {
     .map((x) => Number(x))
     .filter((l) => l > alert.Level)
     .sort();
+
   if (levelsSorted.length === 0) {
-    // No next notification
+    console.warn('All levels has been notified, exiting.');
+    // TODO: Wanna notify again all the escalation policy? start editing here.
+    return;
   }
-  const currentLevelToNotify: number = levelsSorted.pop() as number;
+
+  const currentLevelToNotify: number = levelsSorted[0] as number;
 
   alert.Level = currentLevelToNotify;
   if (!await modifyAlertIfNotClosed(alert)) {
@@ -46,8 +53,8 @@ description: String) {
   ));
 
   if (sendNotificaionsResult.every((r) => r.status === 'rejected')) {
-    console.error('All the notificacions have failed');
-    StepUpLevelAlert({
+    console.error('All the notificacions have failed. Scaling up inmediatly.');
+    DomainLogicServerlessStepUpLevelAlert({
       createTimer,
       modifyAlert,
       modifyAlertIfNotClosed,
@@ -76,7 +83,12 @@ description: String) {
   }
 }
 
-export const StepUpLevelAlertInjected = bindDependencies(
-  StepUpLevelAlert,
-  {},
+export const DomainLogicServerlessStepUpLevelAlertInjected: DomainLogicStepUpLevelAlert = bindDependencies(
+  DomainLogicServerlessStepUpLevelAlert,
+  {
+    createTimer: TYPES.TimerAdapterCreateTimerMock,
+    modifyAlert: TYPES.PersistanceAdapterModifyAlert,
+    modifyAlertIfNotClosed: TYPES.PersistanceAdapterModifyAlertIfNotClosed,
+    getAlert: TYPES.PersistanceAdapterGetAlert,
+  },
 );

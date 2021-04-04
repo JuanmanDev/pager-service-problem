@@ -1,7 +1,7 @@
 import {
   CreateAlert,
   CreateAlertPerson,
-  CreateService, DeleteService, GetAlert, GetServices, ModifyAlert, ModifyService,
+  CreateService, DeleteService, GetAlert, GetServices, ModifyAlert, ModifyAlertIfNotClosed, ModifyService,
 } from '@interfaces/PersistanceAdapter';
 import TYPES from '@inyection/types';
 import {
@@ -11,6 +11,7 @@ import {
   DeleteServiceMock,
   GetAlertMock,
   GetServicesMock,
+  ModifyAlertIfNotClosedMock,
   ModifyAlertMock,
   ModifyServiceMock,
 } from '@MockServices/PersistanceAdapter';
@@ -41,5 +42,8 @@ export const PersistanceAdapterMockContainerModule = new ContainerModule((bind) 
   );
   bind<ModifyAlert>(TYPES.PersistanceAdapterModifyAlert).toConstantValue(
     ModifyAlertMock,
+  );
+  bind<ModifyAlertIfNotClosed>(TYPES.PersistanceAdapterModifyAlertIfNotClosed).toConstantValue(
+    ModifyAlertIfNotClosedMock,
   );
 });

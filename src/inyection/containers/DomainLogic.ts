@@ -1,5 +1,11 @@
 import {
-  DomainLogicCreateService, DomainLogicDeleteService, DomainLogicGetServices, DomainLogicModifyService,
+  DomainLogicCreateAlert,
+  DomainLogicCreateService,
+  DomainLogicDeleteService,
+  DomainLogicGetServices,
+  DomainLogicModifyService,
+  DomainLogicReceiveTimeout,
+  DomainLogicStepUpLevelAlert,
 } from '@interfaces/DomainLogic';
 import { ContainerModule } from 'inversify';
 import TYPES from '@inyection/types';
@@ -8,6 +14,11 @@ import { DomainLogicCreateServiceServerlessInjected } from '@DomainLogicServerle
 import { DomainLogicModifyServiceServerlessInjected } from '@DomainLogicServerless/DomainLogicModifyServiceServerless';
 import { DomainLogicDeleteServiceServerlessInjected } from '@DomainLogicServerless/DomainLogicDeleteServiceServerless';
 import { DomainLogicGetServicesServerlessInjected } from '@DomainLogicServerless/DomainLogicGetServicesServerless';
+import { DomainLogicCreateAlertServerlessInjected } from '@DomainLogicServerless/DomainLogicCreateAlertServerless';
+import {
+  DomainLogicReceiveTimeoutServerlessInjected,
+} from '@DomainLogicServerless/DomainLogicReceiveTimeoutServerless';
+import { DomainLogicServerlessStepUpLevelAlertInjected } from '@DomainLogicServerless/DomainLogicStepUpLevelAlert';
 
 export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
   bind<DomainLogicCreateService>(TYPES.DomainLogicCreateService).toConstantValue(
@@ -21,5 +32,17 @@ export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
   );
   bind<DomainLogicGetServices>(TYPES.DomainLogicGetServices).toConstantValue(
     DomainLogicGetServicesServerlessInjected,
+  );
+
+  bind<DomainLogicCreateAlert>(TYPES.DomainLogicCreateAlert).toConstantValue(
+    DomainLogicCreateAlertServerlessInjected,
+  );
+
+  bind<DomainLogicReceiveTimeout>(TYPES.DomainLogicReceiveTimeout).toConstantValue(
+    DomainLogicReceiveTimeoutServerlessInjected,
+  );
+
+  bind<DomainLogicStepUpLevelAlert>(TYPES.DomainLogicStepUpLevelAlert).toConstantValue(
+    DomainLogicServerlessStepUpLevelAlertInjected,
   );
 });

@@ -8,7 +8,7 @@ import bindDependencies from '@inyection/bindDependencies';
 
 import TYPES from '@inyection/types';
 import ERROR from '../Errors/DomainLogicServerless';
-import { StepUpLevelAlertInjected } from './StepUpLevelAlert';
+import { DomainLogicServerlessStepUpLevelAlertInjected } from './DomainLogicStepUpLevelAlert';
 
 export const DomainLogicCreateAlertServerless = async function DomainLogicCreateAlertServerless(
   {
@@ -52,7 +52,8 @@ export const DomainLogicCreateAlertServerless = async function DomainLogicCreate
 
   alert = await createAlert(alert);
 
-  alert = await StepUpLevelAlertInjected(escalationPolicy, alert, service, description);
+  // This could be no-awaited if we want a fast response.
+  await DomainLogicServerlessStepUpLevelAlertInjected(escalationPolicy, alert, service, description);
 
   return alert.Id;
 };

@@ -150,7 +150,15 @@ export type DomainLogicCreateAlert = (serviceIdentifier: String, description: St
 
 // Next functions will be called from Timer Service (Timer Adapter)
 export type DomainLogicReceiveTimeout = (data: { // Maybe this should me moved to TimerAdapter?
-  funcitonIdentifier: HandlerFunctionIdentifier,
+  functionIdentifier: HandlerFunctionIdentifier,
   params?: any[]
 }) => Promise<void>;
 export type DomainLogicCheckAlert = (alertIdentifier: String) => Promise<void>;
+
+// Internal Functions:
+export type DomainLogicStepUpLevelAlert = (
+  escalationPolicy: EscalationPolicy,
+  alert: Alert,
+  service: Service,
+  description: String,
+) => Promise<void>;

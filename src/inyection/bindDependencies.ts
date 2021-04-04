@@ -1,18 +1,22 @@
 import { container } from './inversify.config';
 
-function bindDependencies(func: any, dependencies: any) {
+function bindDependencies(func: Function, dependencies: any) {
   const handler = {
     get(target: any, dependency: any) {
       if (!(dependency in target)) {
-        // eslint-disable-next-line no-param-reassign
-        target[dependency] = container.get(dependencies[dependency]);
+        try {
+          // eslint-disable-next-line no-param-reassign
+          target[dependency] = container.get(dependencies[dependency]);
+        } catch (error) {
+          console.error(`Dependency with name '${dependency}' not found for ${func.name} `);
+          throw error;
+        }
       }
       return target[dependency];
     },
   };
 
   const injections = new Proxy({}, handler);
-  // const injections: any = dependencies.map((dependency: any) => container.get(dependency));
 
   return func.bind(func, injections);
 }
