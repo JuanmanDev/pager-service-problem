@@ -146,11 +146,11 @@ export type DomainLogicCloseAlert = (alertIdentifier: String) => Promise<boolean
 
 // Next functions will be called from Alerting Service (Alerting Adapter)
 export type DomainLogicCreateAlert = (serviceIdentifier: String, description: String) => Promise<String>;
-export type DomainLogicStopAlert = (alertIdentifier: String) => Promise<boolean>;
+// export type DomainLogicCloseAlert = (alertIdentifier: String) => Promise<boolean>; // Repeated
 
 // Next functions will be called from Timer Service (Timer Adapter)
-export type DomainLogicCheckAlert = (alertIdentifier: String) => Promise<void>;
 export type DomainLogicReceiveTimeout = (data: { // Maybe this should me moved to TimerAdapter?
   funcitonIdentifier: HandlerFunctionIdentifier,
   params?: any[]
 }) => Promise<void>;
+export type DomainLogicCheckAlert = (alertIdentifier: String) => Promise<void>;
