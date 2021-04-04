@@ -9,7 +9,7 @@ Run tests with:
 
 
 
-You could generate a diagram with:
+You could generate a diagram with (But no with dependecy inyection!):
 `yarn madge  --extensions ts ./ -i graph.png`
 Remeber to install (Graphviz with Choco)[https://community.chocolatey.org/packages/Graphviz] to ensure is installed on path.
 

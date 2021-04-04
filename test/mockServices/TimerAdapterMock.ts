@@ -20,8 +20,7 @@ export const CreateTimerMock = async function CreateTimerMock(
       functionIdentifier: data.functionIdentifier,
       params: data.params,
     });
-  }, 20 * 1000);
-  // }, data.timeSpanMillisecons);
+  }, data.timeSpanMillisecons);
 
   // eslint-disable-next-line no-plusplus
   const id = timerSequence++;
