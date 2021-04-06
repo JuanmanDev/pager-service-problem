@@ -1,5 +1,5 @@
 import {
-  Alert, DomainLogicCreateAlert,
+  Alert, DomainLogicCreateAlert, DomainLogicStepUpLevelAlert,
 } from '@interfaces/DomainLogic';
 import {
   CreateAlert, GetServices,
@@ -8,14 +8,14 @@ import bindDependencies from '@inyection/bindDependencies';
 
 import TYPES from '@inyection/types';
 import ERROR from '../Errors/DomainLogicServerless';
-import { DomainLogicServerlessStepUpLevelAlertInjected } from './DomainLogicStepUpLevelAlert';
 
 export const DomainLogicCreateAlertServerless = async function DomainLogicCreateAlertServerless(
   {
-    getServices, createAlert,
+    getServices, createAlert, stepUpLevelAlert,
   }: {
     getServices: GetServices,
     createAlert: CreateAlert,
+    stepUpLevelAlert: DomainLogicStepUpLevelAlert
   },
   serviceIdentifier: String,
   description: String,
@@ -53,7 +53,7 @@ export const DomainLogicCreateAlertServerless = async function DomainLogicCreate
   alert = await createAlert(alert);
 
   // This could be no-awaited if we want a fast response.
-  await DomainLogicServerlessStepUpLevelAlertInjected(escalationPolicy, alert, service, description);
+  await stepUpLevelAlert(escalationPolicy, alert, service, description);
 
   return alert.Id;
 };
@@ -62,5 +62,6 @@ export const DomainLogicCreateAlertServerlessInjected: DomainLogicCreateAlert = 
   {
     getServices: TYPES.PersistanceAdapterGetServices,
     createAlert: TYPES.PersistanceAdapterCreateAlert,
+    stepUpLevelAlert: TYPES.DomainLogicStepUpLevelAlert,
   },
 );
