@@ -26,9 +26,11 @@ export const DomainLogicReceiveTimeoutServerless = async function DomainLogicRec
   }
 };
 
+export const dependencies = {
+  checkAlert: TYPES.DomainLogicCheckAlert,
+};
+
 export const DomainLogicReceiveTimeoutServerlessInjected: DomainLogicReceiveTimeout = bindDependencies(
   DomainLogicReceiveTimeoutServerless,
-  {
-    checkAlert: TYPES.DomainLogicCheckAlert,
-  },
+  dependencies,
 );

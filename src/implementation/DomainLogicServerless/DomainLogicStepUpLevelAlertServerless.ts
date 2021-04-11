@@ -85,14 +85,16 @@ export default async function DomainLogicServerlessStepUpLevelAlert(
   }
 }
 
+export const dependencies = {
+  createTimer: TYPES.TimerAdapterCreateTimerMock,
+  modifyAlert: TYPES.PersistanceAdapterModifyAlert,
+  modifyAlertIfNotClosed: TYPES.PersistanceAdapterModifyAlertIfNotClosed,
+  getAlert: TYPES.PersistanceAdapterGetAlert,
+  notifyPerson: TYPES.DomainLogicNotifyPerson,
+  stepUpAlert: TYPES.DomainLogicStepUpLevelAlert,
+};
+
 export const DomainLogicServerlessStepUpLevelAlertInjected: DomainLogicStepUpLevelAlert = bindDependencies(
   DomainLogicServerlessStepUpLevelAlert,
-  {
-    createTimer: TYPES.TimerAdapterCreateTimerMock,
-    modifyAlert: TYPES.PersistanceAdapterModifyAlert,
-    modifyAlertIfNotClosed: TYPES.PersistanceAdapterModifyAlertIfNotClosed,
-    getAlert: TYPES.PersistanceAdapterGetAlert,
-    notifyPerson: TYPES.DomainLogicNotifyPerson,
-    stepUpAlert: TYPES.DomainLogicStepUpLevelAlert,
-  },
+  dependencies,
 );

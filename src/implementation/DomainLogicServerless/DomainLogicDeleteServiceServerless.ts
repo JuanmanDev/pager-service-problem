@@ -14,7 +14,12 @@ export const DomainLogicDeleteServiceServerless = async function DomainLogicDele
   await deleteService(service);
   // TODO: catch posible exceptions
 };
+
+export const dependencies = {
+  deleteService: TYPES.PersistanceAdapterDeleteService,
+};
+
 export const DomainLogicDeleteServiceServerlessInjected: DomainLogicDeleteService = bindDependencies(
   DomainLogicDeleteServiceServerless,
-  { deleteService: TYPES.PersistanceAdapterDeleteService },
+  dependencies,
 );

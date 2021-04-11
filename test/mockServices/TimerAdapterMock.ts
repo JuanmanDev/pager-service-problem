@@ -8,7 +8,7 @@ export const CreateTimerFalseMock = async function CreateTimerFalseMock(
   // _injections,
 ) {
   timerSequence += 1;
-  return timerSequence;
+  return timerSequence.toString();
 };
 
 export const CreateTimerFalseMockInjected: CreateTimer = bindDependencies(

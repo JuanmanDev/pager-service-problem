@@ -11,7 +11,8 @@
     "rules": {
       "import/prefer-default-export": "off",
       "max-len": ["error", { "code": 120 }],
-      "no-console": "off"
+      "no-console": "off",
+      "linebreak-style": "off"
     },
     "ignorePatterns": [
       "jest.config.js"

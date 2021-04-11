@@ -1,4 +1,4 @@
-import { NotifyPerson } from '@DomainLogicServerless/NotifyPerson';
+import { DomainLogicNotifyPersonServerless } from '@DomainLogicServerless/DomainLogicNotifyPersonServerless';
 import { AlertPerson } from '@interfaces/DomainLogic';
 import {
   personWithEmail2, personWithEmailAndSMS1, personWithOUTEmailAndSMS5, personWithSMS3,
@@ -19,7 +19,7 @@ describe('DomainLogicNotifyPersonServerless', () => {
     const sendSMSMock = jest.fn(async () => {});
     const createAlertPersonMock = jest.fn(async (alertPerson: AlertPerson) => alertPerson);
 
-    await NotifyPerson(
+    await DomainLogicNotifyPersonServerless(
       {
         sendEmail: sendEmailMock,
         sendSMS: sendSMSMock,
@@ -42,7 +42,7 @@ describe('DomainLogicNotifyPersonServerless', () => {
     const sendSMSMock = jest.fn(async () => {});
     const createAlertPersonMock = jest.fn(async (alertPerson: AlertPerson) => alertPerson);
 
-    await NotifyPerson(
+    await DomainLogicNotifyPersonServerless(
       {
         sendEmail: sendEmailMock,
         sendSMS: sendSMSMock,
@@ -65,7 +65,7 @@ describe('DomainLogicNotifyPersonServerless', () => {
     const sendSMSMock = jest.fn(async () => {});
     const createAlertPersonMock = jest.fn(async (alertPerson: AlertPerson) => alertPerson);
 
-    await NotifyPerson(
+    await DomainLogicNotifyPersonServerless(
       {
         sendEmail: sendEmailMock,
         sendSMS: sendSMSMock,
@@ -91,7 +91,7 @@ describe('DomainLogicNotifyPersonServerless', () => {
     const createAlertPersonMock = jest.fn(async (alertPerson: AlertPerson) => alertPerson);
 
     try {
-      await NotifyPerson(
+      await DomainLogicNotifyPersonServerless(
         {
           sendEmail: sendEmailMock,
           sendSMS: sendSMSMock,
@@ -120,7 +120,7 @@ describe('DomainLogicNotifyPersonServerless', () => {
     const createAlertPersonMock = jest.fn(async (alertPerson: AlertPerson) => alertPerson);
 
     try {
-      await NotifyPerson(
+      await DomainLogicNotifyPersonServerless(
         {
           sendEmail: sendEmailMock,
           sendSMS: sendSMSMock,

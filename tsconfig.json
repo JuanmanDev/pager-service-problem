@@ -1,8 +1,9 @@
 {
   "include": [
     "./src/**/*",
-    "./test/**/*"
-  ],
+    "./test/**/*",
+    "./madgeDependendencies.ts"
+, "tools/madgeDependencies.ts"  ],
   "exclude": ["node_modules"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */

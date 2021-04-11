@@ -24,10 +24,13 @@ export const DomainLogicModifyServiceServerless = async function DomainLogicModi
   const serviceToModify = servicesFound[0];
   return modifyService(serviceToModify);
 };
+
+export const dependencies = {
+  getServices: TYPES.PersistanceAdapterGetServices,
+  modifyService: TYPES.PersistanceAdapterModifyService,
+};
+
 export const DomainLogicModifyServiceServerlessInjected: DomainLogicModifyService = bindDependencies(
   DomainLogicModifyServiceServerless,
-  {
-    getServices: TYPES.PersistanceAdapterGetServices,
-    modifyService: TYPES.PersistanceAdapterModifyService,
-  },
+  dependencies,
 );

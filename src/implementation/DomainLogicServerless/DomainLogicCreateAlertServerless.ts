@@ -57,11 +57,14 @@ export const DomainLogicCreateAlertServerless = async function DomainLogicCreate
 
   return alert.Id;
 };
+
+export const dependencies = {
+  getServices: TYPES.PersistanceAdapterGetServices,
+  createAlert: TYPES.PersistanceAdapterCreateAlert,
+  stepUpLevelAlert: TYPES.DomainLogicStepUpLevelAlert,
+};
+
 export const DomainLogicCreateAlertServerlessInjected: DomainLogicCreateAlert = bindDependencies(
   DomainLogicCreateAlertServerless,
-  {
-    getServices: TYPES.PersistanceAdapterGetServices,
-    createAlert: TYPES.PersistanceAdapterCreateAlert,
-    stepUpLevelAlert: TYPES.DomainLogicStepUpLevelAlert,
-  },
+  dependencies,
 );

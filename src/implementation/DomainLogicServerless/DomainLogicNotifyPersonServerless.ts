@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ERROR from '../Errors/DomainLogicServerless';
 import { getTemplateEmailFilled, getTemplateSMSFilled } from './DomainLogicTexts';
 
-export async function NotifyPerson(
+export async function DomainLogicNotifyPersonServerless(
   {
     sendEmail, sendSMS, createAlertPerson,
   }: {
@@ -94,13 +94,15 @@ export async function NotifyPerson(
   }
 }
 
-export const NotifyPersonInjected: DomainLogicNotifyPerson = bindDependencies(
-  NotifyPerson,
-  {
-    sendEmail: TYPES.MailAdapterSendEmail,
-    sendSMS: TYPES.SMSAdapterSendSMS,
-    createAlertPerson: TYPES.PersistanceAdapterCreateAlertPerson,
-    getServices: TYPES.PersistanceAdapterGetServices,
-    modifyService: TYPES.PersistanceAdapterModifyService,
-  },
+export const dependencies = {
+  sendEmail: TYPES.MailAdapterSendEmail,
+  sendSMS: TYPES.SMSAdapterSendSMS,
+  createAlertPerson: TYPES.PersistanceAdapterCreateAlertPerson,
+  getServices: TYPES.PersistanceAdapterGetServices,
+  modifyService: TYPES.PersistanceAdapterModifyService,
+};
+
+export const DomainLogicNotifyPersonServerlessInjected: DomainLogicNotifyPerson = bindDependencies(
+  DomainLogicNotifyPersonServerless,
+  dependencies,
 );

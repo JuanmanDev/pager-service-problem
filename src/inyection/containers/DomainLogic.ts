@@ -20,9 +20,11 @@ import { DomainLogicCreateAlertServerlessInjected } from '@DomainLogicServerless
 import {
   DomainLogicReceiveTimeoutServerlessInjected,
 } from '@DomainLogicServerless/DomainLogicReceiveTimeoutServerless';
-import { DomainLogicServerlessStepUpLevelAlertInjected } from '@DomainLogicServerless/DomainLogicStepUpLevelAlert';
+import {
+  DomainLogicServerlessStepUpLevelAlertInjected,
+} from '@DomainLogicServerless/DomainLogicStepUpLevelAlertServerless';
 import { DomainLogicCheckAlertServerlessInjected } from '@DomainLogicServerless/DomainLogicCheckAlertServerless';
-import { NotifyPersonInjected } from '@DomainLogicServerless/NotifyPerson';
+import { DomainLogicNotifyPersonServerlessInjected } from '@DomainLogicServerless/DomainLogicNotifyPersonServerless';
 
 export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
   bind<DomainLogicCreateService>(TYPES.DomainLogicCreateService).toConstantValue(
@@ -53,6 +55,6 @@ export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
     DomainLogicCheckAlertServerlessInjected,
   );
   bind<DomainLogicNotifyPerson>(TYPES.DomainLogicNotifyPerson).toConstantValue(
-    NotifyPersonInjected,
+    DomainLogicNotifyPersonServerlessInjected,
   );
 });

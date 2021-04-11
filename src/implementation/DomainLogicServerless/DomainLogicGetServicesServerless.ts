@@ -16,9 +16,12 @@ export const DomainLogicGetServicesServerless = async function DomainLogicGetSer
   }
   return results;
 };
+
+export const dependencies = {
+  getServices: TYPES.PersistanceAdapterGetServices,
+};
+
 export const DomainLogicGetServicesServerlessInjected: DomainLogicGetServices = bindDependencies(
   DomainLogicGetServicesServerless,
-  {
-    getServices: TYPES.PersistanceAdapterGetServices,
-  },
+  dependencies,
 );

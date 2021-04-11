@@ -1,3 +1,5 @@
+
+
 Install dependecies with:
 
 ```yarn```
@@ -10,11 +12,18 @@ Run tests with:
 
 
 You could generate a diagram with (But no with dependecy inyection!):
-`yarn madge  --extensions ts ./ -i graph.png`
-Remeber to install (Graphviz with Choco)[https://community.chocolatey.org/packages/Graphviz] to ensure is installed on path.
+`yarn diagramDependencies`
+_Remeber to install (Graphviz with Choco)[https://community.chocolatey.org/packages/Graphviz] to ensure is installed on path._
+Result will be in `./tools/grpahs/*.svg`
+
+
 
 <br>
 
+
+# TODO
+
+- Bind dependencies on async import to load only modules required by the code (Serverless!)
 <br>
 
 <br>

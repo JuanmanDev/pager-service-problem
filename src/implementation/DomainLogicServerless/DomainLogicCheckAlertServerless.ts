@@ -28,10 +28,12 @@ export const DomainLogicCheckAlertServerless = async function DomainLogicCheckAl
   await stepUpLevelAlert(escalationPolicy, alert, alert.Service, alert.Description);
 };
 
+export const dependencies = {
+  getAlert: TYPES.PersistanceAdapterGetAlert,
+  stepUpLevelAlert: TYPES.DomainLogicStepUpLevelAlert,
+};
+
 export const DomainLogicCheckAlertServerlessInjected: DomainLogicCheckAlert = bindDependencies(
   DomainLogicCheckAlertServerless,
-  {
-    getAlert: TYPES.PersistanceAdapterGetAlert,
-    stepUpLevelAlert: TYPES.DomainLogicStepUpLevelAlert,
-  },
+  dependencies,
 );

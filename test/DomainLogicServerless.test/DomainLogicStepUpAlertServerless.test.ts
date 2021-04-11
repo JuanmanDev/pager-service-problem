@@ -1,4 +1,4 @@
-import DomainLogicServerlessStepUpLevelAlert from '@DomainLogicServerless/DomainLogicStepUpLevelAlert';
+import DomainLogicServerlessStepUpLevelAlert from '@DomainLogicServerless/DomainLogicStepUpLevelAlertServerless';
 import { FunctionsToReceive } from '@DomainLogicServerless/FunctionsToReceive';
 import { Alert } from '@interfaces/DomainLogic';
 import { GetEscalationPolicyMock } from '@MockServices/EscalationPolicyAdapterMock';

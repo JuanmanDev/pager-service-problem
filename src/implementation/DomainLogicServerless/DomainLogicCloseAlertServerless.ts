@@ -42,11 +42,13 @@ alertPersonIdentifier?: String) {
   return true;
 };
 
+export const dependencies = {
+  getAlert: TYPES.PersistanceAdapterGetAlert,
+  getAlertPerson: TYPES.PersistanceAdapterGetAlertPerson,
+  modifyAlertIfNotClosed: TYPES.PersistanceAdapterModifyAlertIfNotClosed,
+};
+
 export const DomainLogicCloseAlertServerlessInjected: DomainLogicCloseAlert = bindDependencies(
   DomainLogicCloseAlertServerless,
-  {
-    getAlert: TYPES.PersistanceAdapterGetAlert,
-    getAlertPerson: TYPES.PersistanceAdapterGetAlertPerson,
-    modifyAlertIfNotClosed: TYPES.PersistanceAdapterModifyAlertIfNotClosed,
-  },
+  dependencies,
 );

@@ -14,9 +14,12 @@ export const DomainLogicCreateServiceServerless = async function DomainLogicCrea
 
   return serviceCreated;
 };
+
+export const dependencies = {
+  createService: TYPES.PersistanceAdapterCreateService,
+};
+
 export const DomainLogicCreateServiceServerlessInjected: DomainLogicCreateService = bindDependencies(
   DomainLogicCreateServiceServerless,
-  {
-    createService: TYPES.PersistanceAdapterCreateService,
-  },
+  dependencies,
 );
