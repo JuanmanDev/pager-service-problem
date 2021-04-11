@@ -1,4 +1,5 @@
 import {
+  DomainLogicCheckAlert,
   DomainLogicCreateAlert,
   DomainLogicCreateService,
   DomainLogicDeleteService,
@@ -19,6 +20,7 @@ import {
   DomainLogicReceiveTimeoutServerlessInjected,
 } from '@DomainLogicServerless/DomainLogicReceiveTimeoutServerless';
 import { DomainLogicServerlessStepUpLevelAlertInjected } from '@DomainLogicServerless/DomainLogicStepUpLevelAlert';
+import { DomainLogicCheckAlertServerlessInjected } from '@DomainLogicServerless/DomainLogicCheckAlertServerless';
 
 export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
   bind<DomainLogicCreateService>(TYPES.DomainLogicCreateService).toConstantValue(
@@ -44,5 +46,8 @@ export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
 
   bind<DomainLogicStepUpLevelAlert>(TYPES.DomainLogicStepUpLevelAlert).toConstantValue(
     DomainLogicServerlessStepUpLevelAlertInjected,
+  );
+  bind<DomainLogicCheckAlert>(TYPES.DomainLogicCheckAlert).toConstantValue(
+    DomainLogicCheckAlertServerlessInjected,
   );
 });

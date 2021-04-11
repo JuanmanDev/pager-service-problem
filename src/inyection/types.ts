@@ -6,6 +6,7 @@ const TYPES = {
   DomainLogicCreateAlert: 'DomainLogicCreateAlert',
   DomainLogicStepUpLevelAlert: 'DomainLogicStepUpLevelAlert',
   DomainLogicReceiveTimeout: 'DomainLogicReceiveTimeout',
+  DomainLogicCheckAlert: 'DomainLogicCheckAlert',
 
   TimerAdapterCreateTimerMock: 'TimerAdapterCreateTimerMock',
 
