@@ -19,9 +19,11 @@ alertPersonIdentifier?: String) {
 
   if (alertPersonIdentifier) {
     const alertPerson = await getAlertPerson(alertPersonIdentifier);
+    console.info(`Alert closed by person: ${alertPerson.Person.Id}`);
     alert = alertPerson.Alert;
   } else if (alertIdentifier) {
     alert = await getAlert(alertIdentifier);
+    console.info(`Alert closed by aplication - ${alertIdentifier}`);
   } else {
     throw new Error(ERROR.DL_Serverless_AlertNotFound);
   }
