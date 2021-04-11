@@ -53,6 +53,8 @@ Steps to guide all the cases:
    or even could be possible that an alert should be closed by all technicians notified?\
    or even the should be closed only by the all technicians on the last-level notified?
 
+2. The 15 mins between slacing up the policy should be extaly 15 min or could be about 15 min?
+
 <br>
 
 # Supositions

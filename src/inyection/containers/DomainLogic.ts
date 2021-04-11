@@ -5,6 +5,7 @@ import {
   DomainLogicDeleteService,
   DomainLogicGetServices,
   DomainLogicModifyService,
+  DomainLogicNotifyPerson,
   DomainLogicReceiveTimeout,
   DomainLogicStepUpLevelAlert,
 } from '@interfaces/DomainLogic';
@@ -21,6 +22,7 @@ import {
 } from '@DomainLogicServerless/DomainLogicReceiveTimeoutServerless';
 import { DomainLogicServerlessStepUpLevelAlertInjected } from '@DomainLogicServerless/DomainLogicStepUpLevelAlert';
 import { DomainLogicCheckAlertServerlessInjected } from '@DomainLogicServerless/DomainLogicCheckAlertServerless';
+import { NotifyPersonInjected } from '@DomainLogicServerless/NotifyPerson';
 
 export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
   bind<DomainLogicCreateService>(TYPES.DomainLogicCreateService).toConstantValue(
@@ -49,5 +51,8 @@ export const DomainLogicContainerModule = new ContainerModule(async (bind) => {
   );
   bind<DomainLogicCheckAlert>(TYPES.DomainLogicCheckAlert).toConstantValue(
     DomainLogicCheckAlertServerlessInjected,
+  );
+  bind<DomainLogicNotifyPerson>(TYPES.DomainLogicNotifyPerson).toConstantValue(
+    NotifyPersonInjected,
   );
 });

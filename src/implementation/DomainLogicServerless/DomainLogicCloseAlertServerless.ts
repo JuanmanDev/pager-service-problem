@@ -2,7 +2,6 @@ import { Alert, DomainLogicCloseAlert } from '@interfaces/DomainLogic';
 import { GetAlert, GetAlertPerson, ModifyAlertIfNotClosed } from '@interfaces/PersistanceAdapter';
 import bindDependencies from '@inyection/bindDependencies';
 import TYPES from '@inyection/types';
-import { CreateTimerMock } from '@MockServices/TimerAdapterMock';
 import ERROR from '../Errors/DomainLogicServerless';
 
 export const DomainLogicCloseAlertServerless = async function DomainLogicCloseAlertServerless({
@@ -36,6 +35,7 @@ alertPersonIdentifier?: String) {
 
   if (!await modifyAlertIfNotClosed(alert)) {
     console.info(ERROR.DL_Serverless_AlertAlreadyClosed);
+    // TODO cancel timer
     return false;
   }
 
@@ -43,7 +43,7 @@ alertPersonIdentifier?: String) {
 };
 
 export const DomainLogicCloseAlertServerlessInjected: DomainLogicCloseAlert = bindDependencies(
-  CreateTimerMock,
+  DomainLogicCloseAlertServerless,
   {
     getAlert: TYPES.PersistanceAdapterGetAlert,
     getAlertPerson: TYPES.PersistanceAdapterGetAlertPerson,

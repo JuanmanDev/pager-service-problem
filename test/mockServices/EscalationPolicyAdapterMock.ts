@@ -1,5 +1,4 @@
 import { EscalationPolicy, Person } from '@interfaces/DomainLogic';
-import { GetEscalationPolicy } from '@interfaces/EscalationPolicyAdapter';
 
 export const person1: Person = {
   Name: 'Juan Manuel Béc',
@@ -44,8 +43,8 @@ export const escalationPolicyMocked: EscalationPolicy = {
   },
 };
 
-const GetEscalationPolicyMock: GetEscalationPolicy = async function GetEscalationPolicyMock() {
-  return escalationPolicyMocked;
+const GetEscalationPolicyMock = async function GetEscalationPolicyMock() {
+  return { ...escalationPolicyMocked };
 };
 
 export { GetEscalationPolicyMock };

@@ -162,3 +162,10 @@ export type DomainLogicStepUpLevelAlert = (
   service: Service,
   description: String,
 ) => Promise<void>;
+export type DomainLogicNotifyPerson = (
+  person: Person,
+  serviceName: String,
+  description: String,
+  level: number,
+  alert: Alert,
+) => Promise<void>;

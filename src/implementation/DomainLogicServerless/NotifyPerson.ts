@@ -1,4 +1,6 @@
-import { Person, AlertPerson, Alert } from '@interfaces/DomainLogic';
+import {
+  Person, AlertPerson, Alert, DomainLogicNotifyPerson,
+} from '@interfaces/DomainLogic';
 import { SendEmail } from '@interfaces/MailAdapter';
 import { CreateAlertPerson } from '@interfaces/PersistanceAdapter';
 import { SendSMS } from '@interfaces/SMSAdapter';
@@ -91,7 +93,7 @@ export async function NotifyPerson(
   }
 }
 
-export const NotifyPersonInjected = bindDependencies(
+export const NotifyPersonInjected: DomainLogicNotifyPerson = bindDependencies(
   NotifyPerson,
   {
     sendEmail: TYPES.MailAdapterSendEmail,

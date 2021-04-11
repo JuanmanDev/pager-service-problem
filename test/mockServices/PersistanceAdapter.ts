@@ -94,3 +94,7 @@ export const DeleteServiceMockKO: DeleteService = async function DeleteServiceMo
 export const CreateAlertPersonMockKO: CreateAlertPerson = async function CreateAlertPersonMockKO() {
   throw Error('Error connecting to DataBase');
 };
+
+export const GetAlertClosedMock = async function GetAlertClosedMock(): Promise<Alert> {
+  return { ...AlertClosedMock };
+};

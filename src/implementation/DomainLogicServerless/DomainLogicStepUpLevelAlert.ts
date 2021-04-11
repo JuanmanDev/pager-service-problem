@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
-  EscalationPolicy, Alert, Service, DomainLogicStepUpLevelAlert,
+  EscalationPolicy, Alert, Service, DomainLogicStepUpLevelAlert, DomainLogicNotifyPerson,
 } from '@interfaces/DomainLogic';
 import {
   ModifyAlertIfNotClosed, GetAlert, ModifyAlert,
@@ -9,23 +9,28 @@ import { CreateTimer } from '@interfaces/TimerAdapter';
 import bindDependencies from '@inyection/bindDependencies';
 import TYPES from '@inyection/types';
 import { FunctionsToReceive } from './FunctionsToReceive';
-import { NotifyPersonInjected } from './NotifyPerson';
 
-export default async function DomainLogicServerlessStepUpLevelAlert({
-  createTimer,
-  modifyAlert,
-  modifyAlertIfNotClosed,
-  getAlert,
-}: {
-  createTimer: CreateTimer,
-  modifyAlert: ModifyAlert,
-  modifyAlertIfNotClosed: ModifyAlertIfNotClosed,
-  getAlert: GetAlert,
-},
-escalationPolicy: EscalationPolicy,
-alert: Alert,
-service: Service,
-description: String) {
+export default async function DomainLogicServerlessStepUpLevelAlert(
+  {
+    createTimer,
+    modifyAlert,
+    modifyAlertIfNotClosed,
+    getAlert,
+    notifyPerson,
+    stepUpAlert,
+  }: {
+    createTimer: CreateTimer,
+    modifyAlert: ModifyAlert,
+    modifyAlertIfNotClosed: ModifyAlertIfNotClosed,
+    getAlert: GetAlert,
+    notifyPerson: DomainLogicNotifyPerson,
+    stepUpAlert: DomainLogicStepUpLevelAlert,
+  },
+  escalationPolicy: EscalationPolicy,
+  alert: Alert,
+  service: Service,
+  description: String,
+) {
   const levelsSorted = Object.keys(escalationPolicy.PersonsLevels)
     .map((x) => Number(x))
     .filter((l) => l > alert.Level)
@@ -49,21 +54,17 @@ description: String) {
 
   const currentPersonsToNotify = escalationPolicy.PersonsLevels[currentLevelToNotify];
   const sendNotificaionsResult = await Promise.allSettled(currentPersonsToNotify.map(
-    (p) => NotifyPersonInjected(p, service.Name, description),
+    (p) => notifyPerson(p, service.Name, description, currentLevelToNotify, alert),
   ));
 
   if (sendNotificaionsResult.every((r) => r.status === 'rejected')) {
     console.error('All the notificacions have failed. Scaling up inmediatly.');
-    DomainLogicServerlessStepUpLevelAlert({
-      createTimer,
-      modifyAlert,
-      modifyAlertIfNotClosed,
-      getAlert,
-    },
-    escalationPolicy,
-    alert,
-    service,
-    description);
+    await stepUpAlert(
+      escalationPolicy,
+      alert,
+      service,
+      description,
+    );
 
     return;
   }
@@ -71,7 +72,7 @@ description: String) {
   // All notifications fine, lets build a timer to upcale the level
   const timerIdentifier = await createTimer({
     functionIdentifier: FunctionsToReceive.CheckAlertStatus,
-    timeSpanMillisecons: 15 * 60 * 1000,
+    timeSpanMillisecons: 15 * 60 * 1000, // 15 min should be a variable from the alert? process.env?
     params: [{ serviceIdentifier: service.Id, alertIdentifier: alert.Id }],
   });
 
@@ -80,6 +81,7 @@ description: String) {
     alert = await getAlert(alert.Id);
     alert.Level = currentLevelToNotify;
     modifyAlert(alert);
+    // TODO: Cancel timer
   }
 }
 
@@ -90,5 +92,7 @@ export const DomainLogicServerlessStepUpLevelAlertInjected: DomainLogicStepUpLev
     modifyAlert: TYPES.PersistanceAdapterModifyAlert,
     modifyAlertIfNotClosed: TYPES.PersistanceAdapterModifyAlertIfNotClosed,
     getAlert: TYPES.PersistanceAdapterGetAlert,
+    notifyPerson: TYPES.DomainLogicNotifyPerson,
+    stepUpAlert: TYPES.DomainLogicStepUpLevelAlert,
   },
 );

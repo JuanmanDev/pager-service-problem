@@ -10,7 +10,7 @@ export type GetAlertPerson = (alertPersonIdentifier: String) => Promise<AlertPer
 
 export type GetAlert = (alertId: String) => Promise<Alert>;
 export type CreateAlert = (alert: Alert) => Promise<Alert>;
-export type ModifyAlert = (aler: Alert) => Promise<Alert>;
+export type ModifyAlert = (alert: Alert) => Promise<Alert>;
 
 // Only modify the alert if the Alet.ClosedTime is not defined.
 export type ModifyAlertIfNotClosed = (alert: Alert) => Promise<boolean>;

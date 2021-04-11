@@ -8,6 +8,8 @@ const TYPES = {
   DomainLogicReceiveTimeout: 'DomainLogicReceiveTimeout',
   DomainLogicCheckAlert: 'DomainLogicCheckAlert',
 
+  DomainLogicNotifyPerson: 'DomainLogicNotifyPerson',
+
   TimerAdapterCreateTimerMock: 'TimerAdapterCreateTimerMock',
 
   PersistanceAdapterCreateService: 'PersistanceAdapterCreateService',
