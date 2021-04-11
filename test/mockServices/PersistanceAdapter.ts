@@ -11,7 +11,7 @@ import {
   ModifyAlertIfNotClosed,
 } from '@interfaces/PersistanceAdapter';
 
-import { escalationPolicyMocked, person5 } from './EscalationPolicyAdapterMock';
+import { escalationPolicyMocked, personWithOUTEmailAndSMS5 } from './EscalationPolicyAdapterMock';
 
 export const ServiceMock: Service = {
   EscalationPolicy: escalationPolicyMocked,
@@ -41,7 +41,7 @@ export const AlertPersonMock: AlertPerson = {
   Channel: 'SMS',
   Date: new Date(),
   Id: '123-456-789',
-  Person: person5,
+  Person: personWithOUTEmailAndSMS5,
   Level: 4,
 };
 

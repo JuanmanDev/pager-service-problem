@@ -6,6 +6,7 @@ enum ERROR {
   DL_Serverless_AlertAlreadyClosed = 'DL_Serverless_AlertAlreadyClosed',
   DL_Serverless_AlertNotFound = 'DL_Serverless_AlertNotFound',
   DL_Serverless_EscalationPolicyPersonWithoutContactData = 'DL_Serverless_EscalationPolicyPersonWithoutContactData',
+  DL_Serverless_AllNotifiedError = 'DL_Serverless_NotifyPersonNoContactData',
 }
 
 const ErrorDescription = Object.freeze({
@@ -16,6 +17,7 @@ const ErrorDescription = Object.freeze({
 
   [ERROR.DL_Serverless_AlertNotFound]: 'Alert identifier not correspond to any alert',
   [ERROR.DL_Serverless_EscalationPolicyPersonWithoutContactData]: 'Person does not have any contact information',
+  [ERROR.DL_Serverless_AllNotifiedError]: 'Cannot send any notification',
 });
 
 export default ERROR;

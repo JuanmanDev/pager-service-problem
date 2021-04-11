@@ -155,7 +155,7 @@ export type DomainLogicReceiveTimeout = (data: { // Maybe this should me moved t
 }) => Promise<void>;
 export type DomainLogicCheckAlert = (alertIdentifier: String) => Promise<void>;
 
-// Internal Functions:
+// Internal Functions for at least, Serverless implementation:
 export type DomainLogicStepUpLevelAlert = (
   escalationPolicy: EscalationPolicy,
   alert: Alert,

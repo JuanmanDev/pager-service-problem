@@ -6,6 +6,7 @@ import { CreateAlertPerson } from '@interfaces/PersistanceAdapter';
 import { SendSMS } from '@interfaces/SMSAdapter';
 import bindDependencies from '@inyection/bindDependencies';
 import TYPES from '@inyection/types';
+import { v4 as uuidv4 } from 'uuid';
 import ERROR from '../Errors/DomainLogicServerless';
 import { getTemplateEmailFilled, getTemplateSMSFilled } from './DomainLogicTexts';
 
@@ -30,7 +31,7 @@ export async function NotifyPerson(
 
     if (person.Email) {
       try {
-        const identifier = 'UUID';
+        const identifier = uuidv4();
         const template = await getTemplateEmailFilled({
           name: person.Name,
           serviceName,
@@ -60,7 +61,7 @@ export async function NotifyPerson(
 
     if (person.SMSNumber) {
       try {
-        const identifier = 'UUID';
+        const identifier = uuidv4();
         const template = await getTemplateSMSFilled({
           name: person.Name,
           serviceName,
@@ -88,7 +89,7 @@ export async function NotifyPerson(
     }
 
     if (sentAnyNotification === false) {
-      throw new Error('Cannot send any notification');
+      throw new Error(ERROR.DL_Serverless_AllNotifiedError);
     }
   }
 }

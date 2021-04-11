@@ -1,30 +1,30 @@
 import { EscalationPolicy, Person } from '@interfaces/DomainLogic';
 
-export const person1: Person = {
+export const personWithEmailAndSMS1: Person = {
   Name: 'Juan Manuel Béc',
   Email: 'Juanmabs22@test.test',
   Id: '1',
   SMSNumber: '+34679679679',
 };
-export const person2: Person = {
+export const personWithEmail2: Person = {
   Name: 'Marisa',
   Email: 'marisa@test.test',
   Id: '2',
   // SMSNumber: '',
 };
-export const person3: Person = {
+export const personWithSMS3: Person = {
   Name: 'three',
   // Email: 'three@test.test',
   Id: '3',
   SMSNumber: '+34333333',
 };
-export const person4: Person = {
+export const personWithEmailAndSMS4: Person = {
   Name: 'Four',
   Email: 'four@test.test',
   Id: '4',
   SMSNumber: '+34777555444',
 };
-export const person5: Person = {
+export const personWithOUTEmailAndSMS5: Person = {
   Name: 'Five!',
   Email: '',
   Id: '5',
@@ -35,11 +35,11 @@ export const escalationPolicyMocked: EscalationPolicy = {
   Id: '123',
   Name: 'Mock Escalation Policy',
   PersonsLevels: {
-    1: [person1],
-    2: [person2],
-    3: [person3, person4],
-    5: [person5],
-    4: [person1],
+    1: [personWithEmailAndSMS1],
+    2: [personWithEmail2],
+    3: [personWithSMS3, personWithEmailAndSMS4],
+    5: [personWithOUTEmailAndSMS5],
+    4: [personWithEmailAndSMS1],
   },
 };
 
